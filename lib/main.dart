@@ -12,8 +12,8 @@ class VocabApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFE9EAF6),
         fontFamily: 'NotoSansSC',
-        scaffoldBackgroundColor: const Color(0xFFE6E7F4),
       ),
       home: const VocabularyHomePage(),
     );
@@ -28,59 +28,58 @@ class VocabularyHomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _searchBar(),
+              _buildSearchBar(),
               const SizedBox(height: 18),
-              _studyCard(),
+              _buildMainCard(),
               const SizedBox(height: 18),
-              _toolsCard(),
+              _buildToolCard(),
               const SizedBox(height: 18),
-              _quoteCard(),
-              const SizedBox(height: 26),
+              _buildQuoteCard(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: _bottomNavigation(),
+      bottomNavigationBar: _buildBottomBar(),
     );
   }
 
-  Widget _searchBar() {
+  Widget _buildSearchBar() {
     return Container(
       height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFF9F9FF),
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0xFF2D2D3A), width: 2),
+        border: Border.all(color: const Color(0xFF313345), width: 1.8),
       ),
       child: const Row(
         children: [
-          Icon(Icons.search, size: 30, color: Color(0xFF1E1E29)),
+          Icon(Icons.search, size: 32, color: Color(0xFF1D1D2A)),
           SizedBox(width: 12),
           Text(
             '查询英文或中文',
-            style: TextStyle(fontSize: 36 / 2, color: Color(0xFF292733)),
+            style: TextStyle(fontSize: 18, color: Color(0xFF2D2C38)),
           ),
         ],
       ),
     );
   }
 
-  Widget _studyCard() {
+  Widget _buildMainCard() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
       decoration: BoxDecoration(
-        color: const Color(0xFFF4F4FA),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFF2E2F42), width: 2),
+        color: const Color(0xFFF8F8FD),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFF313345), width: 1.8),
         boxShadow: const [
           BoxShadow(
-            color: Color(0xFF2E2F42),
-            offset: Offset(0, 4),
+            color: Color(0xFF313345),
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -93,70 +92,77 @@ class VocabularyHomePage extends StatelessWidget {
               Text(
                 '考研词汇 ›',
                 style: TextStyle(
-                  fontSize: 46 / 2,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF181823),
+                  color: Color(0xFF1B1A24),
                 ),
               ),
-              Icon(Icons.settings_outlined, size: 28, color: Color(0xFF606071)),
+              Icon(Icons.settings_outlined, size: 30, color: Color(0xFF5D5D6E)),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 22),
           ClipRRect(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(6),
             child: Row(
-              children: [
-                Expanded(flex: 20, child: _BarSegment(color: Color(0xFF445EA7))),
-                Expanded(flex: 10, child: _BarSegment(color: Color(0xFFD9A9D2))),
-                Expanded(flex: 70, child: _BarSegment(color: Color(0xFFE1E1E1))),
+              children: const [
+                Expanded(flex: 18, child: _ProgressSegment(color: Color(0xFF4660A9))),
+                Expanded(flex: 8, child: _ProgressSegment(color: Color(0xFFD7A8D3))),
+                Expanded(flex: 74, child: _ProgressSegment(color: Color(0xFFE1E1E4))),
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _StatBlock(label: '已学习', value: '890', dotColor: Color(0xFF445EA7)),
-              _StatBlock(label: '已标熟', value: '403', dotColor: Color(0xFFD9A9D2)),
-              _StatBlock(label: '待学习', value: '3746', dotColor: Color(0xFFE1E1E1)),
+              _StatInfo(label: '已学习', value: '890', dot: Color(0xFF4660A9)),
+              _StatInfo(label: '已标熟', value: '403', dot: Color(0xFFD7A8D3)),
+              _StatInfo(label: '待学习', value: '3746', dot: Color(0xFFE1E1E4)),
             ],
           ),
           const SizedBox(height: 20),
           Center(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
               decoration: BoxDecoration(
-                color: const Color(0xFFEAEAF0),
-                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xFFEDEDF3),
+                borderRadius: BorderRadius.circular(18),
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('学习计划', style: TextStyle(fontSize: 18, color: Color(0xFF727284))),
-                  SizedBox(width: 8),
-                  Icon(Icons.edit_note, size: 20, color: Color(0xFF727284)),
+                  Text(
+                    '学习计划',
+                    style: TextStyle(
+                      color: Color(0xFF7A7A89),
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Icon(Icons.edit, size: 16, color: Color(0xFF7A7A89)),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 22),
           const Row(
             children: [
               Expanded(
-                child: _ActionButton(
-                  label: '新学',
-                  count: '0/10',
-                  color: Color(0xFF445EA7),
+                child: _ActionChip(
+                  title: '新学',
+                  subtitle: '0/10',
+                  bgColor: Color(0xFF4660A9),
                   textColor: Colors.white,
                 ),
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 16),
               Expanded(
-                child: _ActionButton(
-                  label: '复习',
-                  count: '10/215',
-                  color: Color(0xFFD9A9D2),
-                  textColor: Color(0xFF322C3C),
+                child: _ActionChip(
+                  title: '复习',
+                  subtitle: '10/215',
+                  bgColor: Color(0xFFDDB1D8),
+                  textColor: Color(0xFF342C39),
                 ),
               ),
             ],
@@ -166,44 +172,45 @@ class VocabularyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _toolsCard() {
-    final items = [
-      ('学习记录', Icons.history, Color(0xFFAFC0FF)),
-      ('收藏本', Icons.star_border, Color(0xFFDAB0D9)),
-      ('错题本', Icons.error_outline, Color(0xFFF3B2B2)),
-      ('主题本', Icons.menu_book_outlined, Color(0xFFD4CCF9)),
-      ('自建词书', Icons.bookmark_add_outlined, Color(0xFFD9D1F2)),
-      ('巩固练习', Icons.check_circle_outline, Color(0xFFD9C4CF)),
+  Widget _buildToolCard() {
+    final tools = <({String label, IconData icon, Color color})>[
+      (label: '学习记录', icon: Icons.access_time, color: const Color(0xFFB7C8FF)),
+      (label: '收藏本', icon: Icons.star_outline, color: const Color(0xFFDDB4DC)),
+      (label: '错题本', icon: Icons.priority_high, color: const Color(0xFFF3B5B4)),
+      (label: '主题本', icon: Icons.subject, color: const Color(0xFFD9D2FF)),
+      (label: '自建词书', icon: Icons.bookmark_add_outlined, color: const Color(0xFFD9D1F2)),
+      (label: '巩固练习', icon: Icons.check_circle_outline, color: const Color(0xFFE1C9D3)),
     ];
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(12, 18, 12, 14),
       decoration: BoxDecoration(
-        color: const Color(0xFFF4F4FA),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFF2E2F42), width: 2),
+        color: const Color(0xFFF8F8FD),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFF313345), width: 1.8),
       ),
       child: Wrap(
         spacing: 8,
-        runSpacing: 20,
-        children: items
+        runSpacing: 16,
+        children: tools
             .map(
               (item) => SizedBox(
-                width: 84,
+                width: 85,
                 child: Column(
                   children: [
                     Container(
                       width: 48,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: item.$3,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: const Color(0xFF2A2A3B), width: 2),
+                        color: item.color,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: const Color(0xFF2A2A39), width: 1.8),
                       ),
-                      child: Icon(item.$2, size: 26, color: const Color(0xFF2A2A3B)),
+                      child: Icon(item.icon, color: const Color(0xFF2A2A39), size: 24),
                     ),
                     const SizedBox(height: 8),
-                    Text(item.$1, style: const TextStyle(fontSize: 16, color: Color(0xFF222232))),
+                    Text(item.label, style: const TextStyle(fontSize: 14, color: Color(0xFF242432))),
                   ],
                 ),
               ),
@@ -213,12 +220,13 @@ class VocabularyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _quoteCard() {
+  Widget _buildQuoteCard() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(18, 20, 18, 18),
       decoration: BoxDecoration(
-        color: const Color(0xFFEFEFFA),
-        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xFFF0F0F9),
+        borderRadius: BorderRadius.circular(18),
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,35 +234,32 @@ class VocabularyHomePage extends StatelessWidget {
           Text(
             '“\nThe best time to plant a tree was 20 years\nago. The second best time is now.\n',
             style: TextStyle(
-              fontSize: 25,
               fontStyle: FontStyle.italic,
-              height: 1.4,
-              color: Color(0xFF3D3D4D),
+              fontSize: 22,
+              height: 1.35,
+              color: Color(0xFF4A4A59),
             ),
           ),
           Text(
-            '种树的最好时间是二十年前，其次是现在。',
-            style: TextStyle(
-              fontSize: 17,
-              color: Color(0xFF9A9AAA),
-            ),
+            '│ 种树的最好时间是二十年前，其次是现在。',
+            style: TextStyle(fontSize: 16, color: Color(0xFFAAAAB7)),
           ),
         ],
       ),
     );
   }
 
-  Widget _bottomNavigation() {
+  Widget _buildBottomBar() {
     return BottomAppBar(
-      color: const Color(0xFFDADBEA),
+      color: const Color(0xFFDCDDEB),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            _BottomItem(label: '单词', icon: Icons.bookmark, active: true),
-            _BottomItem(label: '统计', icon: Icons.bar_chart),
-            _BottomItem(label: '我的', icon: Icons.person_outline),
+            _NavButton(label: '单词', icon: Icons.bookmark, active: true),
+            _NavButton(label: '统计', icon: Icons.bar_chart),
+            _NavButton(label: '我的', icon: Icons.person_outline),
           ],
         ),
       ),
@@ -262,8 +267,8 @@ class VocabularyHomePage extends StatelessWidget {
   }
 }
 
-class _BarSegment extends StatelessWidget {
-  const _BarSegment({required this.color});
+class _ProgressSegment extends StatelessWidget {
+  const _ProgressSegment({required this.color});
 
   final Color color;
 
@@ -273,12 +278,12 @@ class _BarSegment extends StatelessWidget {
   }
 }
 
-class _StatBlock extends StatelessWidget {
-  const _StatBlock({required this.label, required this.value, required this.dotColor});
+class _StatInfo extends StatelessWidget {
+  const _StatInfo({required this.label, required this.value, required this.dot});
 
   final String label;
   final String value;
-  final Color dotColor;
+  final Color dot;
 
   @override
   Widget build(BuildContext context) {
@@ -290,54 +295,54 @@ class _StatBlock extends StatelessWidget {
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: dot),
             ),
             const SizedBox(width: 6),
-            Text(label, style: const TextStyle(fontSize: 16, color: Color(0xFF7A7A87))),
+            Text(label, style: const TextStyle(fontSize: 16, color: Color(0xFF7B7B88))),
           ],
         ),
         const SizedBox(height: 6),
-        Text(value, style: const TextStyle(fontSize: 30, color: Color(0xFF2A2A36))),
+        Text(value, style: const TextStyle(fontSize: 54 / 2, color: Color(0xFF2D2D39))),
       ],
     );
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.label,
-    required this.count,
-    required this.color,
+class _ActionChip extends StatelessWidget {
+  const _ActionChip({
+    required this.title,
+    required this.subtitle,
+    required this.bgColor,
     required this.textColor,
   });
 
-  final String label;
-  final String count;
-  final Color color;
+  final String title;
+  final String subtitle;
+  final Color bgColor;
   final Color textColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 64,
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(32)),
+      height: 58,
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
       child: Center(
         child: RichText(
           text: TextSpan(
+            style: TextStyle(color: textColor),
             children: [
               TextSpan(
-                text: label,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
+                text: title,
+                style: const TextStyle(fontSize: 24 / 1.2, fontWeight: FontWeight.w700),
               ),
               TextSpan(
-                text: ' $count',
+                text: ' $subtitle',
                 style: TextStyle(
-                  color: textColor.withValues(alpha: 0.85),
-                  fontSize: 18,
+                  fontSize: 15,
+                  color: textColor.withValues(alpha: 0.9),
                 ),
               ),
             ],
@@ -348,8 +353,8 @@ class _ActionButton extends StatelessWidget {
   }
 }
 
-class _BottomItem extends StatelessWidget {
-  const _BottomItem({required this.label, required this.icon, this.active = false});
+class _NavButton extends StatelessWidget {
+  const _NavButton({required this.label, required this.icon, this.active = false});
 
   final String label;
   final IconData icon;
@@ -362,19 +367,19 @@ class _BottomItem extends StatelessWidget {
       children: [
         Container(
           width: 70,
-          height: 42,
+          height: 40,
           decoration: BoxDecoration(
-            color: active ? const Color(0xFFB8BEDA) : Colors.transparent,
-            borderRadius: BorderRadius.circular(21),
+            color: active ? const Color(0xFFBCC3DF) : Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: Icon(icon, size: 30, color: const Color(0xFF3A3B4B)),
+          child: Icon(icon, size: 30, color: const Color(0xFF3A3B4C)),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 2),
         Text(
           label,
           style: TextStyle(
             fontSize: 18,
-            color: const Color(0xFF242533),
+            color: const Color(0xFF252635),
             fontWeight: active ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
